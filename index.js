@@ -125,7 +125,7 @@ app.get("/cart", async (req, res) => {
     if (allCartItems.length != 0) {
       res.json(allCartItems);
     } else {
-      res.json({ message: "Cart is empty" });
+      res.json([]);
     }
   } catch (error) {
     res.status(500).json({ error: "Failed to fetched the items" });
@@ -236,7 +236,7 @@ app.get("/wishlist", async (req, res) => {
     if (allWishlistItems.length != 0) {
       res.json(allWishlistItems);
     } else {
-      res.json({ message: "Wishlist is empty" });
+      res.json([]);
     }
   } catch (error) {
     res.status(500).json({ error: "Failed to fetched the items" });
@@ -411,7 +411,7 @@ app.get("/order", async (req, res) => {
     if (orders.length != 0) {
       res.json(orders);
     } else {
-      res.json({ message: "There are no orders" });
+      res.json([]);
     }
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch the orders" });
