@@ -344,7 +344,12 @@ app.post("/address/:id", async (req, res) => {
   try {
     const updatedAddress = await updateAddress(req.params.id, req.body);
     if (updatedAddress) {
-      res.status(200).json({ message: "Address updated successfully" });
+      res
+        .status(200)
+        .json({
+          message: "Address updated successfully",
+          address: updatedAddress,
+        });
     } else {
       res.status(404).json({ error: "Address not found" });
     }
