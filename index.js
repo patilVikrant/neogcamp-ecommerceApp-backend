@@ -391,12 +391,9 @@ async function createOrder(order) {
 app.post("/order", async (req, res) => {
   try {
     const newOrder = await createOrder(req.body);
-    const populatedNewOrder = await Order.findById(newOrder._id).populate(
-      "items deliveryAddress",
-    );
     res
       .status(201)
-      .json({ mesaage: "Order added successfully", order: populatedNewOrder });
+      .json({ mesaage: "Order added successfully", order: newOrder });
   } catch (error) {
     res.status(500).json({ error: "Failed to add the order" });
   }
@@ -404,7 +401,7 @@ app.post("/order", async (req, res) => {
 
 async function getAllOrders() {
   try {
-    const orders = await Order.find().populate("items deliveryAddress");
+    const orders = await Order.find();
     return orders;
   } catch (error) {
     console.log(error);
@@ -426,7 +423,7 @@ app.get("/order", async (req, res) => {
 
 async function getOrderById(id) {
   try {
-    const order = await Order.findById(id).populate("items deliveryAddress");
+    const order = await Order.findById(id);
     return order;
   } catch (error) {
     console.log(error);
