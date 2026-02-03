@@ -344,12 +344,10 @@ app.post("/address/:id", async (req, res) => {
   try {
     const updatedAddress = await updateAddress(req.params.id, req.body);
     if (updatedAddress) {
-      res
-        .status(200)
-        .json({
-          message: "Address updated successfully",
-          address: updatedAddress,
-        });
+      res.status(200).json({
+        message: "Address updated successfully",
+        address: updatedAddress,
+      });
     } else {
       res.status(404).json({ error: "Address not found" });
     }
@@ -393,9 +391,12 @@ async function createOrder(order) {
 app.post("/order", async (req, res) => {
   try {
     const newOrder = await createOrder(req.body);
+    const populatedNewOrder = await Order.findById(newOrder._id).populate(
+      "items deliveryAddress",
+    );
     res
       .status(201)
-      .json({ mesaage: "Order added successfully", order: newOrder });
+      .json({ mesaage: "Order added successfully", order: populatedNewOrder });
   } catch (error) {
     res.status(500).json({ error: "Failed to add the order" });
   }
